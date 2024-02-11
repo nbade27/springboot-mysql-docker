@@ -1,0 +1,24 @@
+Running mysql image:
+docker run --name mysql-db -e MYSQL_ROOT_PASSWORD=root -p 3333:3306 -d mysql:8.0.36
+
+Creating network:
+docker network create spring-network
+
+Adding MySql container to network:
+docker network connect spring-network mysql-db
+
+data about the network:
+docker network inspect spring-network
+
+Building springboot docker image:
+docker build -t spring-boot-docker .
+
+Running and adding Image to the network:
+docker run -p 9090:8080 --name spring-boot-docker --net spring-network -e MYSQL_HOST=mysql-db -e MYSQL_PORT=3306 -e MYSQL_USER=root -e MYSQL_PASSWORD=root spring-boot-docker
+
+Adding container to the network:
+docker network connect spring-network spring-boot-docker
+
+
+For Testing in local:
+We need to create the environment variables with MYSQL_HOST, MYSQL_PORT, MYSQL_USER, MYSQL_PASSWORD
