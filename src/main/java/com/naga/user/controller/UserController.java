@@ -13,6 +13,10 @@ public class UserController {
 	@Autowired
 	UserRepo userRepo;
 
+	/**
+	 * 
+	 * @return List of uses
+	 */
 	@GetMapping("/users")
 	public Iterable<User> getUsers() {
 		return userRepo.findAll();
